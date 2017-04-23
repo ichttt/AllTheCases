@@ -1,4 +1,4 @@
 #Main mod class
-ichttt.mods.allTheCases.ModInstance
+modClass=ichttt.mods.allTheCases.ModInstance
 #SHAString
-#TODO
+SHA1String=3A764C9A19C49DB3A543F8068688E75B0A9246BA

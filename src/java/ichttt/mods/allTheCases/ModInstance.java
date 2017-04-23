@@ -14,8 +14,10 @@ import ichttt.logicsimModLoader.exceptions.MissingDependencyException;
 import ichttt.logicsimModLoader.gui.MenuBarHandler;
 import ichttt.logicsimModLoader.init.LogicSimModLoader;
 import ichttt.logicsimModLoader.internal.LSMLInternalMod;
+import ichttt.logicsimModLoader.internal.LSMLLog;
 import ichttt.logicsimModLoader.internal.ModContainer;
 import ichttt.logicsimModLoader.loader.Loader;
+import ichttt.logicsimModLoader.update.UpdateContext;
 import ichttt.logicsimModLoader.util.I18nHelper;
 import ichttt.logicsimModLoader.util.LSMLUtil;
 import logicsim.Gate;
@@ -25,6 +27,7 @@ import logicsim.SWITCH;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -62,6 +65,14 @@ public class ModInstance implements ActionListener {
         if (!LogicSimModLoader.LSML_VERSION.isMinimum(REQUIRED_LSML_VERSION))
             throw new MissingDependencyException(LSMLUtil.getModAnnotationForClass(ModInstance.class), LSMLInternalMod.MODID, REQUIRED_LSML_VERSION);
         container = Loader.getInstance().getModContainerForModID("AllTheCases");
+        try {
+            event.checkForUpdate(new UpdateContext(container, new URL("https://raw.githubusercontent.com/ichttt/AllTheCases/master/UpdateInformation.txt")).
+                    withWebsite(new URL("https://github.com/ichttt/AllTheCases")).
+                    enableAutoUpdate(new URL("https://raw.githubusercontent.com/ichttt/AllTheCases/master/AllTheCases.modinfo"),
+                            new URL("https://github.com/ichttt/AllTheCases/blob/master/AllTheCases.jar?raw=true")));
+        } catch (Exception e) {
+            LSMLLog.warning("[AllTheCases] Failed to register UpdateChecker!");
+        }
     }
 
     @Subscribe
