@@ -1,4 +1,4 @@
-#ModID
-AllTheCases
-#Version
-1.0.0
+#Main mod class
+ichttt.mods.allTheCases.ModInstance
+#SHAString
+#TODO
