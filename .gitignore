@@ -1,0 +1,10 @@
+#Ignore for AllTheCases
+/libs/
+/config/
+/.idea/
+/languages/
+/log/
+/out/
+/mods/
+/modules/
+logicsim.cfg
