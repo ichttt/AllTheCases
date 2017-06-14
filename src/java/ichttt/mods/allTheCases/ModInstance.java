@@ -37,7 +37,7 @@ import java.util.logging.Logger;
  * (c) Tobias Hotz, 2017
  * Licensed under GPL v3
  */
-@Mod(modid = "AllTheCases", modName = "AllTheCases", version = "1.0.1", author = "Tobias Hotz")
+@Mod(modid = "AllTheCases", modName = "AllTheCases", version = "1.0.2", author = "Tobias Hotz")
 public class ModInstance implements ActionListener {
     private static final VersionBase REQUIRED_LSML_VERSION = new VersionBase(0, 2, 2);
     private static I18nHelper i18n;
@@ -68,8 +68,8 @@ public class ModInstance implements ActionListener {
         try {
             event.checkForUpdate(new UpdateContext(container, new URL("https://raw.githubusercontent.com/ichttt/AllTheCases/master/UpdateInformation.txt")).
                     withWebsite(new URL("https://github.com/ichttt/AllTheCases")).
-                    enableAutoUpdate(new URL("https://raw.githubusercontent.com/ichttt/AllTheCases/master/AllTheCases.modinfo"),
-                            new URL("https://github.com/ichttt/AllTheCases/blob/master/AllTheCases.jar?raw=true")));
+                    enableAutoUpdate(new URL("https://github.com/ichttt/AllTheCases/blob/master/AllTheCases.jar?raw=true"),
+                            new URL("https://raw.githubusercontent.com/ichttt/AllTheCases/master/AllTheCases.modinfo")));
         } catch (Exception e) {
             LSMLLog.warning("[AllTheCases] Failed to register UpdateChecker!");
         }
