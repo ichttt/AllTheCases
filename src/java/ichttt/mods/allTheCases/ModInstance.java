@@ -37,7 +37,7 @@ import java.util.logging.Logger;
  * (c) Tobias Hotz, 2017
  * Licensed under GPL v3
  */
-@Mod(modid = "AllTheCases", modName = "AllTheCases", version = "1.0.0", author = "Tobias Hotz")
+@Mod(modid = "AllTheCases", modName = "AllTheCases", version = "1.0.1", author = "Tobias Hotz")
 public class ModInstance implements ActionListener {
     private static final VersionBase REQUIRED_LSML_VERSION = new VersionBase(0, 2, 2);
     private static I18nHelper i18n;
