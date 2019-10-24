@@ -56,7 +56,7 @@ public class ModInstance implements ActionListener {
         LogicSimModLoader.startFromDev();
     }
 
-    public static String translate(String  toTranslate) {
+    public static String translate(String toTranslate) {
         return i18n.translate(toTranslate);
     }
 
@@ -123,13 +123,19 @@ public class ModInstance implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (isCollecting || !CustomOrder.isActive()) {
-            isCollecting = false;
-            AllTheCases.run();
-            CustomOrder.clear();
-        } else {
-            isCollecting = true;
-            LSMLUtil.showMessageDialogOnWindowIfAvailable(translate("CustomOrder"));
+        try {
+            if (isCollecting || !CustomOrder.isActive()) {
+                isCollecting = false;
+                AllTheCases.run();
+                CustomOrder.clear();
+            } else {
+                isCollecting = true;
+                LSMLUtil.showMessageDialogOnWindowIfAvailable(translate("CustomOrder"));
+            }
+        } catch (Throwable t) {
+            logger.warning("Failed to execute!\n" + t.getLocalizedMessage());
+            LSMLUtil.showMessageDialogOnWindowIfAvailable("Failed to execute!\n" + t.getLocalizedMessage());
+            throw t;
         }
     }
 }

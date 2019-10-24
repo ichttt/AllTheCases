@@ -13,7 +13,7 @@ import java.util.Map;
  * Licensed under GPL v3
  */
 public class SwitchStore {
-    private static Map<SWITCH, Boolean> stateMap = new HashMap<>();
+    private static final Map<SWITCH, Boolean> stateMap = new HashMap<>();
 
     static void collect() {
         stateMap.clear();

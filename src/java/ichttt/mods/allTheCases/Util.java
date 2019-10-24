@@ -1,7 +1,11 @@
 package ichttt.mods.allTheCases;
 
-import ichttt.mods.gateNameLink.GateNameLink;
-import logicsim.*;
+import ichttt.logicsimModLoader.loader.Loader;
+import logicsim.Gate;
+import logicsim.GateList;
+import logicsim.LED;
+import logicsim.SWITCH;
+import logicsim.TextLabel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +35,18 @@ public class Util {
     }
 
     public static void addLabelToGate(TextLabel label, Gate gate, GateList activeGateList) {
+        boolean add = true;
         if (ModInstance.hasGateWithNamesMod) {
-            GateNameLink.addTextField(gate, label);
-        } else {
+            try {
+                Class<?> compatClass = Class.forName("ichttt.mods.gateNameLink.GateNameLink", false, Loader.getInstance().getModClassLoader());
+                compatClass.getDeclaredMethod("addTextField", Gate.class, TextLabel.class).invoke(null, gate, label);
+                add = false;
+            } catch (ReflectiveOperationException e) {
+                ModInstance.getLogger().warning("Failed GateNameLink compat\n" + e.getLocalizedMessage());
+                add = true;
+            }
+        }
+        if (add) {
             label.x = gate.x + 50;
             label.y = gate.y;
             activeGateList.addGate(label);
