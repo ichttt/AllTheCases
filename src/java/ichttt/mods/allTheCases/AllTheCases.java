@@ -83,19 +83,24 @@ public class AllTheCases {
         ModInstance.getLogger().fine("Successfully ran algorithm and wrote lines, restoring switch state");
         SwitchStore.reset();
 
-        if (genText) {
-            for (int i = 0; i < switches.size(); i++) { //Label switches
-                TextLabel label = new TextLabel();
-                label.text = "Switch " + i;
-                Util.addLabelToGate(label, switches.get(i), list);
-            }
-
-            for (int i = 0; i < ledList.size(); i++) { //Label LEDs
-                TextLabel label = new TextLabel();
-                label.text = "LED " + i;
-                Util.addLabelToGate(label, ledList.get(i), list);
-            }
+        String[] inputs = new String[switches.size()];
+        for (int i = 0; i < switches.size(); i++) { //Label switches
+            String text = Util.getGateLabel(switches.get(i));
+            String otherText = "Switch " + i;
+            if (genText && text == null)
+                Util.addLabelToGate(otherText, switches.get(i), list);
+            inputs[i] = text == null ? otherText : text;
         }
+
+        String[] outputs = new String[ledList.size()];
+        for (int i = 0; i < ledList.size(); i++) { //Label LEDs
+            String text = Util.getGateLabel(ledList.get(i));
+            String otherText = "LED " + i;
+            if (genText && text == null)
+                Util.addLabelToGate(otherText, ledList.get(i), list);
+            outputs[i] = text == null ? otherText : text;
+        }
+        excelManager.writeHeader(inputs, outputs);
         JFrame mainFrame = LogicSimModLoader.getApp().frame;
         mainFrame.repaint();
 

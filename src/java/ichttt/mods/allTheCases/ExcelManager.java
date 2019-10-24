@@ -11,6 +11,7 @@ import javax.swing.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.function.IntFunction;
 
 /**
  * @author Tobias Hotz
@@ -30,15 +31,13 @@ public class ExcelManager {
         this.inputCount = inputCount;
         this.outputCount = outputCount;
         sheet = wb.createSheet(WorkbookUtil.createSafeSheetName(sheetName));
-        Row row = sheet.createRow(3);
-        int pos;
-        for (pos = 0; pos < inputCount; pos++) {
-            row.createCell(pos+1).setCellValue(ModInstance.translate("Input") + " " + pos);
-        }
-        pos++;
-        for (int i = 0 ; i < outputCount; i++) {
-            row.createCell(i+pos+1).setCellValue(ModInstance.translate("Output") +  " " + i);
-        }
+    }
+
+    public void writeHeader(String[] inputData, String[] outputData) {
+        int posIndex = pos;
+        pos = 3;
+        writeLine(inputData, outputData);
+        pos = posIndex;
     }
 
     public void writeLine(String[] inputData, String[] outputData) {

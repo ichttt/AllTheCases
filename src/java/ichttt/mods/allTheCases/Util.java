@@ -6,6 +6,7 @@ import logicsim.GateList;
 import logicsim.LED;
 import logicsim.SWITCH;
 import logicsim.TextLabel;
+import sun.awt.AWTAccessor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,9 @@ public class Util {
         return leds;
     }
 
-    public static void addLabelToGate(TextLabel label, Gate gate, GateList activeGateList) {
+    public static void addLabelToGate(String text, Gate gate, GateList activeGateList) {
+        TextLabel label = new TextLabel();
+        label.text = text;
         boolean add = true;
         if (ModInstance.hasGateWithNamesMod) {
             try {
@@ -51,5 +54,20 @@ public class Util {
             label.y = gate.y;
             activeGateList.addGate(label);
         }
+    }
+
+    public static String getGateLabel(Gate gate) {
+        if (ModInstance.hasGateWithNamesMod) {
+            try {
+                Class<?> connListClass = Class.forName("ichttt.mods.gateNameLink.ConnectionList", false, Loader.getInstance().getModClassLoader());
+                TextLabel label = (TextLabel) connListClass.getDeclaredMethod("getTextLabel", Gate.class).invoke(null, gate);
+                if (label != null)
+                    return label.text;
+            } catch (ReflectiveOperationException | ClassCastException e) {
+                ModInstance.getLogger().warning("Failed GateNameLink compat\n" + e.getLocalizedMessage());
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 }

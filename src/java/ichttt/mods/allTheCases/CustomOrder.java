@@ -24,9 +24,7 @@ public class CustomOrder {
     public static void addToSwitchList(SWITCH gate) {
         if (!switchList.contains(gate)) {
             switchList.add(gate);
-            TextLabel label = new TextLabel();
-            label.text = "Switch " + switchCount;
-            Util.addLabelToGate(label, gate, LogicSimModLoader.getApp().lsframe.lspanel.gates);
+            Util.addLabelToGate("Switch " + switchCount, gate, LogicSimModLoader.getApp().lsframe.lspanel.gates);
             switchCount++;
         } else
             LSMLUtil.showMessageDialogOnWindowIfAvailable(ModInstance.translate("GateIsOnList"));
@@ -35,9 +33,7 @@ public class CustomOrder {
     public static void addToLEDList(LED led) {
         if (!ledList.contains(led)) {
             ledList.add(led);
-            TextLabel label = new TextLabel();
-            label.text = "LED " + ledCount;
-            Util.addLabelToGate(label, led, LogicSimModLoader.getApp().lsframe.lspanel.gates);
+            Util.addLabelToGate("LED " + ledCount, led, LogicSimModLoader.getApp().lsframe.lspanel.gates);
             ledCount++;
         } else
             LSMLUtil.showMessageDialogOnWindowIfAvailable(ModInstance.translate("GateIsOnList"));
